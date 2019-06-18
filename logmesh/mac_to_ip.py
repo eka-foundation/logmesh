@@ -2,8 +2,14 @@ def mac_to_ip():
     
     '''Figures out what the IP address of each mac address is.'''
 
-    # get a list of all nodes in the network
-    nodes = sorted(pd.read_csv('ping.csv').node_ip.unique())
+    import os
+    
+    # get a list of unique node IPs
+    nodes = []
+    for i in os.popen('ls cleaned_logs').readlines():
+        i = i.strip()
+        nodes.append(i.split('_')[0])
+        nodes = list(set(nodes))
     
     final = {}
     for node in nodes:
